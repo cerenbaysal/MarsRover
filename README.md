@@ -11,7 +11,7 @@ Each rover will be finished sequentially, which means that the second rover wonâ
 Output:
 The output for each rover should be its final coordinates and heading.
 
-> Example:
+Example:
 Input:
 5 5
 1 2 N
