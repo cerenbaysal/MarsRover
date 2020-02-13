@@ -14,11 +14,11 @@ namespace RoverBusiness
         int x = 0;
         int y = 0;
         int facing = 1;
-        int[,] plateau;
+        List<int> maxSize;
 
-        public RoverEngine(int x, int y)
+        public RoverEngine(List<int> maxSizeArray)
         {
-            plateau = new int[x,y];
+            maxSize = maxSizeArray;
         }
 
         public void setPosition(int x, int y, int facing)
@@ -91,23 +91,32 @@ namespace RoverBusiness
 
         private void move()
         {
+            bool check = true;
             // we should check the facing
             if (facing == N)
             {
                 this.y++;
+                if (this.y > maxSize[1]) check = false;
             }
             else if (facing == E)
             {
                 this.x++;
+                if (this.x > maxSize[0]) check = false;
             }
             else if (facing == S)
             {
                 this.y--;
+                if (this.y < 0) check = false;
             }
             else if (facing == W)
             {
                 this.x--;
+                if (this.x < 0) check = false;
             }
+
+            if(!check)
+            throw new Exception(
+                        "This move exceeded the border of the plateau. Try again later.");
         }
     }
 }

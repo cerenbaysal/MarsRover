@@ -26,62 +26,48 @@ namespace RoverApplication
                 return;
             else
             {
-                rover = new RoverEngine(Convert.ToInt32(maxSize.Split(' ')[0]), Convert.ToInt32(maxSize.Split(' ')[0]));
+                List<int> maxSizeList = new List<int>();
+                maxSizeList.Add(Convert.ToInt32(maxSize.Split(' ')[0]));
+                maxSizeList.Add(Convert.ToInt32(maxSize.Split(' ')[1]));
+                rover = new RoverEngine(maxSizeList);
             }
 
-            Console.WriteLine("Please put the first rover position!:");
-            String firstPosition = Console.ReadLine();
-            if (!checkPositionRequirements(firstPosition))
+            Console.WriteLine("Please put the rover position!:");
+            String position = Console.ReadLine();
+            if (!checkPositionRequirements(position))
                 return;
-
-            int firstX = Convert.ToInt32(firstPosition.Trim().Split(' ')[0].ToString());
-            int firstY = Convert.ToInt32(firstPosition.Trim().Split(' ')[1].ToString());
-            int firstFace = faceDictionary[firstPosition.Trim().Split(' ')[2]];
-
-
-            rover.setPosition(firstX, firstY, firstFace);
-            Console.WriteLine("Please put the first rovers' moves!:");
-            string firstMoves = Console.ReadLine();
 
             try
             {
-                rover.processCommands(firstMoves);
-                Console.WriteLine("The last position of the first rover should be: " + rover.getPosition());
+                int facing = faceDictionary[position.Trim().Split(' ')[2]];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("You can not put the facing parameter like this. Try again later.");
+                return;
+            }
+
+            rover.setPosition(
+                Convert.ToInt32(position.Trim().Split(' ')[0].ToString())
+                , Convert.ToInt32(position.Trim().Split(' ')[1].ToString())
+                , faceDictionary[position.Trim().Split(' ')[2]]);
+
+            Console.WriteLine("Please put the rovers' moves!:");
+            string moves = Console.ReadLine();
+
+            try
+            {
+                rover.processCommands(moves);
+                Console.WriteLine("The last position of the rover should be: " + rover.getPosition());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Press any key to quit...");
                 Console.ReadKey();
                 return;
             }
 
-
-            Console.WriteLine("Please put the second rover position!:");
-            String secondPosition = Console.ReadLine();
-            if (!checkPositionRequirements(secondPosition))
-                return;
-
-            int secondX = Convert.ToInt32(secondPosition.Trim().Split(' ')[0].ToString());
-            int secondY = Convert.ToInt32(secondPosition.Trim().Split(' ')[1].ToString());
-            int secondFace = faceDictionary[secondPosition.Trim().Split(' ')[2]];
-
-            rover.setPosition(secondX, secondY, secondFace);
-            Console.WriteLine("Please put the first rovers' moves!:");
-            string secondMoves = Console.ReadLine();
-
-            try
-            {
-                rover.processCommands(secondMoves);
-                Console.WriteLine("The last position of the second rover should be: " + rover.getPosition());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            Console.WriteLine("Press any key to quit...");
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         static bool checkPositionRequirements(string position)
