@@ -18,7 +18,17 @@ namespace RoverApplication
             faceDictionary.Add("S", 3);
             faceDictionary.Add("W", 4);
 
-            RoverEngine rover = new RoverEngine();
+            RoverEngine rover;
+
+            Console.WriteLine("Please put the max size of plateau: ");
+            String maxSize = Console.ReadLine();
+            if (!checkPlateauRequirements(maxSize))
+                return;
+            else
+            {
+                rover = new RoverEngine(Convert.ToInt32(maxSize.Split(' ')[0]), Convert.ToInt32(maxSize.Split(' ')[0]));
+            }
+
             Console.WriteLine("Please put the first rover position!:");
             String firstPosition = Console.ReadLine();
             if (!checkPositionRequirements(firstPosition))
@@ -80,6 +90,19 @@ namespace RoverApplication
             if (position.Split(' ').Length != 3)
             {
                 Console.WriteLine("You can not put the position like this: " + position + " . Try again later.");
+                check = false;
+                Console.ReadKey();
+            }
+
+            return check;
+        }
+
+        static bool checkPlateauRequirements(string plateau)
+        {
+            bool check = true;
+            if (plateau.Split(' ').Length != 2)
+            {
+                Console.WriteLine("You can not put the size of plateau like this: " + plateau + " . Try again later.");
                 check = false;
                 Console.ReadKey();
             }

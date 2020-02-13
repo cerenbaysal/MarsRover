@@ -10,7 +10,7 @@ namespace RoverTest
         [TestMethod]
         public void RoverTestCase1()
         {
-            RoverEngine rover = new RoverEngine();
+            RoverEngine rover = new RoverEngine(5,5);
             rover.setPosition(1, 2, 1);
             rover.processCommands("LMLMLMLMM");
             string position = rover.getPosition();
@@ -20,7 +20,7 @@ namespace RoverTest
         [TestMethod]
         public void RoverTestCase2()
         {
-            RoverEngine rover = new RoverEngine();
+            RoverEngine rover = new RoverEngine(5,5);
             rover.setPosition(3, 3, 2);
             rover.processCommands("MMRMMRMRRM");
             string position = rover.getPosition();

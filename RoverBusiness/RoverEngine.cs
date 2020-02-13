@@ -14,6 +14,12 @@ namespace RoverBusiness
         int x = 0;
         int y = 0;
         int facing = 1;
+        int[,] plateau;
+
+        public RoverEngine(int x, int y)
+        {
+            plateau = new int[x,y];
+        }
 
         public void setPosition(int x, int y, int facing)
         {
